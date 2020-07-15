@@ -1,12 +1,13 @@
 import React from "react";
 
 import HomeScreen from "./screens/HomeScreen";
-import ProductScreen from "./screens/ProductsScreen"
+import ProductScreen from "./screens/ProductsScreen";
+import CartScreen from "./screens/CartScreen";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
 function App() {
   const openMenu = () => {
-    document.querySelector(".sidebar").classList.add("open"); 
+    document.querySelector(".sidebar").classList.add("open");
   };
   const closeMenu = () => {
     document.querySelector(".sidebar").classList.remove("open");
@@ -43,6 +44,7 @@ function App() {
         <main className="main">
           <div className="content">
             <Route path="/product/:id" component={ProductScreen} />
+            <Route path="/cart/:id?" component={CartScreen} />
             <Route path="/" exact={true} component={HomeScreen} />
           </div>
         </main>
