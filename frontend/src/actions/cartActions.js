@@ -1,8 +1,13 @@
 import axios from "axios";
 import cookie from "js-cookie";
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/contant";
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_SAVE_SHIPPING,
+  CART_SAVE_PAYMENT,
+} from "../constants/contant";
 
-const addToCart = (productId, qty) => async (dispatch,getState) => {
+const addToCart = (productId, qty) => async (dispatch, getState) => {
   try {
     const { data } = await axios.get("/api/products/" + productId);
 
@@ -17,18 +22,29 @@ const addToCart = (productId, qty) => async (dispatch,getState) => {
         qty,
       },
     });
-// retrieve previos item in cart  by saving it into cookie 
-    const { cart : { cartItems }} = getState();
-    cookie.set("cartItems",JSON.stringify(cartItems))
+    // retrieve previos item in cart  by saving it into cookie
+    const {
+      cart: { cartItems },
+    } = getState();
+    cookie.set("cartItems", JSON.stringify(cartItems));
   } catch (error) {}
 };
 
-const removeFromCart = (productId) => async (dispatch,getState ) => {
+const removeFromCart = (productId) => async (dispatch, getState) => {
   dispatch({
     type: CART_REMOVE_ITEM,
     payload: productId,
   });
-  const { cart : { cartItems }} = getState();
-  cookie.set("cartItems",JSON.stringify(cartItems))
+  const {
+    cart: { cartItems },
+  } = getState();
+  cookie.set("cartItems", JSON.stringify(cartItems));
 };
-export { addToCart, removeFromCart };
+
+const saveShipping = (data) => (dispatch) => {
+  dispatch({ type: CART_SAVE_SHIPPING, payload: data });
+};
+const savePayment = (data) => (dispatch) => {
+  dispatch({ type: CART_SAVE_PAYMENT, payload: data });
+};
+export { addToCart, removeFromCart, saveShipping, savePayment };
