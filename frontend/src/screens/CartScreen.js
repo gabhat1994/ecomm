@@ -22,7 +22,8 @@ function CartScreen(props) {
     }
   }, []);
 
-  const checkoutHandler = () => {
+  const checkoutHandler = (e) => {
+    e.preventDefault();
     props.history.push("/signin?redirect=shipping");
   };
 
