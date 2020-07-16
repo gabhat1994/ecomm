@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import SigninScreen from "./screens/SignInScreen";
 import { useSelector } from "react-redux";
 import RegisterScreen from "./screens/RegisterScreen";
+import ProductsScreen from "./screens/ProductScreen";
 
 function App() {
   const userSignIn = useSelector((state) => state.userSignin);
@@ -53,6 +54,7 @@ function App() {
         </aside>
         <main className="main">
           <div className="content">
+            <Route path="/products" component={ProductsScreen} />
             <Route path="/register" component={RegisterScreen} />
             <Route path="/signin" component={SigninScreen} />
             <Route path="/product/:id" component={ProductScreen} />
